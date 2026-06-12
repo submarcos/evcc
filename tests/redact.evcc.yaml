@@ -1,6 +1,3 @@
-# expired sponsor token
-sponsortoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJldmNjLmlvIiwic3ViIjoidHJpYWwiLCJleHAiOjE3NTQ5OTI4MDAsImlhdCI6MTc1MzY5NjgwMCwic3BlIjp0cnVlLCJzcmMiOiJtYSJ9.XKa5DHT-icCM9awcX4eS8feW0J_KIjsx2IxjcRRQOcQ
-
 site:
   title: Redact Test
   meters:

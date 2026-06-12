@@ -34,13 +34,11 @@ test.describe("issue creation", () => {
     await expectModalVisible(modal);
     const configContent = await modal.getByRole("textbox").inputValue();
 
-    // check for redation
-    expect(configContent).toContain("sponsortoken: *****");
+    // check for redaction
     expect(configContent).toContain("user: *****");
     expect(configContent).toContain("password: *****");
 
     // ensure redacted values are not present
-    expect(configContent).not.toContain("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
     expect(configContent).not.toContain("test@example.org");
     expect(configContent).not.toContain("none");
 

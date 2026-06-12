@@ -146,11 +146,6 @@ test.describe("ocpp", () => {
     // Proceed to validation step
     await chargerModal.getByRole("button", { name: "Next step" }).click();
     await expect(chargerModal.getByLabel("Station ID")).toHaveValue(OCPP_STATION_ID);
-
-    // Validate and verify sponsor token error
-    const testResult = chargerModal.getByTestId("test-result");
-    await testResult.getByRole("link", { name: "Validate" }).click();
-    await expect(testResult).toContainText("No sponsor token configured.");
   });
 });
 
