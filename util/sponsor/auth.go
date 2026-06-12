@@ -33,10 +33,10 @@ import (
 )
 
 var (
-	mu                            sync.RWMutex
-	Subject                       = "Community"
-	Token, ActivationKey          string
-	ExpiresAt                     time.Time
+	mu                   sync.RWMutex
+	Subject              = "Community"
+	Token, ActivationKey string
+	ExpiresAt            time.Time
 )
 
 func machineID() string {
