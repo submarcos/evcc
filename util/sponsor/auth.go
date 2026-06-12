@@ -30,13 +30,12 @@ import (
 	"github.com/evcc-io/evcc/util/cloud"
 	"github.com/evcc-io/evcc/util/machine"
 	"github.com/golang-jwt/jwt/v5"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 var (
 	mu                            sync.RWMutex
-	Subject, Token, ActivationKey string
+	Subject                       = "Community"
+	Token, ActivationKey          string
 	ExpiresAt                     time.Time
 )
 
@@ -107,7 +106,8 @@ func ConfigureSponsorship(token string) error {
 
 		var err error
 		if token, err = checkPulsares(); token == "" || err != nil {
-			return err
+			Subject = "Community"
+			return nil
 		}
 	}
 
@@ -122,7 +122,8 @@ func ConfigureSponsorship(token string) error {
 
 	conn, err := cloud.Connection()
 	if err != nil {
-		return err
+		Subject = "Community"
+		return nil
 	}
 
 	client := pb.NewAuthClient(conn)
@@ -135,22 +136,11 @@ func ConfigureSponsorship(token string) error {
 		Subject = res.Subject
 		ActivationKey = res.ActivationKey
 		ExpiresAt = res.ExpiresAt.AsTime()
+	} else {
+		Subject = "Community"
 	}
 
-	if err != nil {
-		if s, ok := status.FromError(err); ok && s.Code() != codes.Unknown {
-			Subject = unavailable
-			err = nil
-		} else {
-			if strings.Contains(err.Error(), "token is expired") {
-				err = fmt.Errorf("%w - get a fresh one from https://sponsor.evcc.io", err)
-			} else {
-				err = fmt.Errorf("sponsortoken: %w", err)
-			}
-		}
-	}
-
-	return err
+	return nil
 }
 
 // redactToken returns a redacted version of the token showing only start and end characters
